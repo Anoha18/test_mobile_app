@@ -8,7 +8,20 @@ const Stack = createStackNavigator();
 
 const DefaultNavigation = () => (
   <Stack.Navigator initialRouteName="Login">
-    <Stack.Screen name="Login" options={{ title: 'Вход в личный кабинет' }} component={LoginScreen} />
+    <Stack.Screen
+      name="Login"
+      options={{
+        title: 'Вход в личный кабинет',
+        headerStyle: {
+          backgroundColor: '#bb0d02',
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontWeight: '400'
+        }
+      }}
+      component={LoginScreen}
+    />
   </Stack.Navigator>
 );
 
