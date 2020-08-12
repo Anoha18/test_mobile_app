@@ -3,19 +3,23 @@ import { Asset } from 'expo-asset';
 import Constants from 'expo-constants';
 import React from 'react';
 import { Animated, Button, StyleSheet, Text, View } from 'react-native';
+import { AppNavigation } from './src/navigation/AppNavigation';
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHide();
 
 export default function App() {
   return (
-    <AnimatedAppLoader image={{ uri: Constants.manifest.splash.image }}>
-      <MainScreen />
-    </AnimatedAppLoader>
+    <React.Fragment>
+      <AppNavigation />
+    </React.Fragment>
+    // <AnimatedAppLoader image={{ uri: Constants.manifest.splash.image }}>
+    //   <MainScreen />
+    // </AnimatedAppLoader>
   );
 }
 
-function AnimatedAppLoader({ children, image }) {
+const AnimatedAppLoader = ({ children, image }) => {
   const [isSplashReady, setSplashReady] = React.useState(false);
 
   const startAsync = React.useMemo(
@@ -43,7 +47,7 @@ function AnimatedAppLoader({ children, image }) {
   );
 }
 
-function AnimatedSplashScreen({ children, image }) {
+const AnimatedSplashScreen = ({ children, image }) => {
   const animation = React.useMemo(() => new Animated.Value(1), []);
   const [isAppReady, setAppReady] = React.useState(false);
   const [isSplashAnimationComplete, setAnimationComplete] = React.useState(
