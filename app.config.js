@@ -7,4 +7,7 @@ export default {
     resizeMode: "contain",
     backgroundColor: "#ffffff",
   },
+  android: {
+    package: "com.anoha.test_mobile_app"
+  }
 };

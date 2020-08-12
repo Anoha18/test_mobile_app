@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { View, Text, StyleSheet, Button, Alert, TouchableOpacity } from 'react-native';
 import Input from '../components/Input';
 import { setUser } from '../store/actions/user';
+import { color } from '../style_constants'
 
-const LoginScreen = ({ route, navigation }) => {
+const LoginScreen = () => {
   const dispatch = useDispatch();
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const { user } = useSelector((state) => state.user);
 
   const createAlertLogin = () => (
     Alert.alert(
@@ -24,10 +24,19 @@ const LoginScreen = ({ route, navigation }) => {
 
   const handlePressButton = () => {
     if (login.trim() === '') {
-      return createAlertLogin();
+      Alert.alert(
+        'Логин не должен быть пустой',
+      )
+
+      return;
     }
 
-    if (password.trim() === '') { return; }
+    if (password.trim() === '') { 
+      Alert.alert(
+        'Пароль не должен быть пустой',
+      )
+      return;
+    }
 
     dispatch(setUser({ login, password }));
   }
@@ -57,16 +66,14 @@ const LoginScreen = ({ route, navigation }) => {
         value={password}
         secure
       />
-      <Button
-        title='Войти'
-        color="#bb0d02"
+      <TouchableOpacity
+        style={styles.loginButton}
         onPress={handlePressButton}
-        style={{ width: '100%' }}
       >
-        <Text>
+        <Text style={{color: color.headerTitleColor, fontSize: '14px', fontWeight: '500'}}>
           Войти
         </Text>
-      </Button>
+      </TouchableOpacity>
     </View>
   )
 };
@@ -78,19 +85,26 @@ const styles = StyleSheet.create({
     paddingLeft: '30px',
     paddingRight: '30px',
     paddingTop: '40px',
-    backgroundColor: 'white'
+    backgroundColor: color.screenBackgroundColor
   },
   title: {
     fontWeight: 'bold',
-    color: '#b5373c',
+    color: color.red,
     fontSize: '38px',
     marginBottom: '30px'
   },
   subTitle: {
     textAlign: 'center',
-    color: 'silver',
+    color: color.gray,
     fontSize: '14px',
     marginBottom: '25px'
+  },
+  loginButton: {
+    backgroundColor: color.headerBackgroundColor,
+    width: '75%',
+    alignItems: 'center',
+    borderRadius: '5px',
+    padding: '12px'
   }
 })
 
